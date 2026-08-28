@@ -1,0 +1,10 @@
+def display_stock_info(ticker_symbol, data):
+    print(f"\n{ticker_symbol}:")
+    print("First price:")
+    print(data["Close"].iloc[0])
+    print("Most recent price:")
+    print(data["Close"].iloc[-1])
+    print("\nMaximum in last year:")
+    print(data["High"].max())
+    print("\nMinimum in last year:")
+    print(data["Low"].min())
