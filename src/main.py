@@ -25,7 +25,12 @@ for stock in stocks:
     
     print(f"{stock}: Annual Return: {return_pct:.2f}%, Volatility: {volatility[stock]:.2f}%")
     #plot_stock_history(stock, data[stock])
-    
+
+order = sorted(volatility.items(), key=lambda item: item[1], reverse=True)
+print(f"Ordered Stock Volatility:\n")
+for stock, vol in order:
+    print(f"{stock}: {vol:.2f}")
+
 annual_returns = compare_returns(returns)
 print("\nAnnual Returns (Ordered):")
 for stock, return_pct in annual_returns:
