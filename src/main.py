@@ -1,11 +1,11 @@
 from data_collection import get_data
 from stock_info import display_stock_info
-from analysis import calculate_return, compare_returns
+from analysis import calculate_return, compare_returns, normalize_all
 from simulation import simulate_all
-from visualization import plot_stock_history
+from visualization import plot_stock_history, plot_multiple
 
-#stocks = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "META"]
-stocks = ["AAPL"]
+stocks = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "META"]
+#stocks = ["AAPL"]
 returns = {}
 data = {}
 for stock in stocks:
@@ -14,9 +14,8 @@ for stock in stocks:
     return_pct = calculate_return(data[stock])
     returns[stock] = return_pct
     print(f"{stock}: Annual Return: {return_pct:.2f}%")
-    plot_stock_history(stock, data[stock])
+    #plot_stock_history(stock, data[stock])
     
-
 annual_returns = compare_returns(returns)
 print("\nAnnual Returns (Ordered):")
 for stock, return_pct in annual_returns:
@@ -31,3 +30,5 @@ for stock, (value, gain) in results.items():
     print(f"{stock}:")
     print(f"Current Value: ${value:.2f}")
     print(f"Profit: ${gain:.2f}")
+
+plot_multiple(stocks, normalize_all(data))
