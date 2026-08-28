@@ -1,6 +1,6 @@
 from data_collection import get_data
 from stock_info import display_stock_info
-from analysis import calculate_return, compare_returns, normalize_all, dependent_normalize_all, calculate_volatility, all_risk_adjusted_return
+from analysis import calculate_return, compare_returns, normalize_all, dependent_normalize_all, calculate_volatility, all_risk_adjusted_return, drawdown_all
 from simulation import simulate_all
 from visualization import plot_stock_history, plot_multiple
 
@@ -40,6 +40,10 @@ print("\nRisk-Adjusted Returns (Ordered):")
 for stock, risk_adj_return in sorted(risk_adjusted_returns.items(), key=lambda item: item[1], reverse=True):
     print(f"{stock}: {risk_adj_return:.2f}")
 
+drawdown_values = drawdown_all(data)
+print("\nDrawdowns (Ordered):")
+for stock, dd in sorted(drawdown_values.items(), key=lambda item: item[1], reverse=True):
+    print(f"{stock}: {dd:.2f}%")
 
 results = simulate_all(stocks, 1000, data, spy_return)
 

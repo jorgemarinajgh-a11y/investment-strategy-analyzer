@@ -56,3 +56,14 @@ def all_risk_adjusted_return(returns, volatility):
     for stock, return_pct in returns.items():
         res[stock] = risk_adjusted_return(return_pct, volatility.get(stock, 0))
     return res
+
+def drawdown(data):
+    peak = data["Close"].cummax()
+    drawdown = (data["Close"] - peak) / peak * 100
+    return drawdown.min()
+
+def drawdown_all(data):
+    res = {}
+    for stock, stock_data in data.items():
+        res[stock] = drawdown(stock_data)
+    return res
