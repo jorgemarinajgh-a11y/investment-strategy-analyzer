@@ -2,9 +2,8 @@ import yfinance as yf
 
 stocks = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "META"]
 
-def out_info(ticker_symbol):
-    ticker = yf.Ticker(ticker_symbol)
-    data = ticker.history(period="1y")
+def out_info(ticker_symbol, period="1y"):
+    data = get_data(ticker_symbol, period=period)
     print(f"\n{ticker_symbol}:")
     print("First price:")
     print(data["Close"].iloc[0])
@@ -16,7 +15,12 @@ def out_info(ticker_symbol):
     print(data["Low"].min())
     return data
 
-def calculate_annual_return(ticker_symbol, period, data):
+def get_data(ticker_symbol, period="1y"):
+    ticker = yf.Ticker(ticker_symbol)
+    data = ticker.history(period=period)
+    return data
+
+def calculate_return(ticker_symbol, period, data):
     if data is None:
         ticker = yf.Ticker(ticker_symbol)
         data = yf.Ticker(ticker_symbol).history(period = period)
@@ -31,7 +35,7 @@ def compare_returns(annual_returns):
     return ordered
 
 def simulator(money, time, stock, data):
-    gain = calculate_annual_return(stock, time, data) * money / 100
+    gain = calculate_return(stock, time, data) * money / 100
     res = gain + money
     return res, gain
 
@@ -45,8 +49,8 @@ def simulate_all(stocks, money, time, data):
 returns = {}
 data = {}
 for stock in stocks:
-    data[stock] = out_info(stock)
-    return_pct = calculate_annual_return(stock, "1y", data[stock])
+    data[stock] = out_info(stock, period="1y")
+    return_pct = calculate_return(stock, "1y", data[stock])
     returns[stock] = return_pct
     print(f"{stock}: Annual Return: {return_pct:.2f}%")
     
