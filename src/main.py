@@ -4,10 +4,12 @@ from analysis import calculate_return, compare_returns, normalize_all
 from simulation import simulate_all
 from visualization import plot_stock_history, plot_multiple
 
-stocks = ["SPY", "AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "META"]
+stocks = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "META"]
+spy = "SPY"
 #stocks = ["AAPL"]
 returns = {}
 data = {}
+spy = calculate_return(get_data(spy, period="1y"))
 for stock in stocks:
     data[stock] = get_data(stock, period="1y")
     display_stock_info(stock,data[stock])
@@ -22,13 +24,14 @@ for stock, return_pct in annual_returns:
     print(f"{stock}: {return_pct:.2f}%")
 
 
-results = simulate_all(stocks, 1000, data)
+results = simulate_all(stocks, 1000, data, spy)
 
 print("\n$1000 Investment Simulation")
 
-for stock, (value, gain) in results.items():
+for stock, (value, gain, better_than_spy) in results.items():
     print(f"{stock}:")
     print(f"Current Value: ${value:.2f}")
     print(f"Profit: ${gain:.2f}")
+    print(f"Better than SPY: {better_than_spy}")
 
 plot_multiple(normalize_all(data))
