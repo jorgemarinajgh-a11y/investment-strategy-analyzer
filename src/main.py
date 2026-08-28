@@ -16,28 +16,22 @@ def out_info(ticker_symbol, period="1y"):
     return data
 
 def get_data(ticker_symbol, period="1y"):
-    ticker = yf.Ticker(ticker_symbol)
-    data = ticker.history(period=period)
-    return data
+    return yf.Ticker(ticker_symbol).history(period=period)
 
 def calculate_return(ticker_symbol, period, data):
     if data is None:
-        ticker = yf.Ticker(ticker_symbol)
-        data = yf.Ticker(ticker_symbol).history(period = period)
+        data = get_data(ticker_symbol, period=period)
     initial_price = data["Close"].iloc[0]
     final_price = data["Close"].iloc[-1]
     return_pct = ((final_price - initial_price) / initial_price) * 100
     return return_pct
 
 def compare_returns(annual_returns):
-    ordered = sorted(annual_returns.items(), key=lambda item: item[1], reverse=True)
+    return sorted(annual_returns.items(), key=lambda item: item[1], reverse=True)
     
-    return ordered
-
 def simulator(money, time, stock, data):
     gain = calculate_return(stock, time, data) * money / 100
-    res = gain + money
-    return res, gain
+    return gain + money, gain 
 
 def simulate_all(stocks, money, time, data):
     results = {}
