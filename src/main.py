@@ -1,6 +1,6 @@
 from data_collection import get_data
 from stock_info import display_stock_info
-from analysis import calculate_return, compare_returns, normalize_all, dependent_normalize_all, calculate_volatility
+from analysis import calculate_return, compare_returns, normalize_all, dependent_normalize_all, calculate_volatility, all_risk_adjusted_return
 from simulation import simulate_all
 from visualization import plot_stock_history, plot_multiple
 
@@ -35,6 +35,10 @@ annual_returns = compare_returns(returns)
 print("\nAnnual Returns (Ordered):")
 for stock, return_pct in annual_returns:
     print(f"{stock}: {return_pct:.2f}%")
+risk_adjusted_returns = all_risk_adjusted_return(returns, volatility)
+print("\nRisk-Adjusted Returns (Ordered):")
+for stock, risk_adj_return in sorted(risk_adjusted_returns.items(), key=lambda item: item[1], reverse=True):
+    print(f"{stock}: {risk_adj_return:.2f}")
 
 
 results = simulate_all(stocks, 1000, data, spy_return)

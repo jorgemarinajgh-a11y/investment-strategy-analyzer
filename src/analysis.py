@@ -45,3 +45,14 @@ def beat_spy(stock_return, spy_return):
 def calculate_volatility(data):
     returns = data["Close"].pct_change()
     return returns.std()
+
+def risk_adjusted_return(returns, volatility):
+    if volatility == 0:
+        return 0
+    return returns / volatility
+
+def all_risk_adjusted_return(returns, volatility):
+    res = {}
+    for stock, return_pct in returns.items():
+        res[stock] = risk_adjusted_return(return_pct, volatility.get(stock, 0))
+    return res
