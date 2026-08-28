@@ -41,3 +41,7 @@ def dependent_normalize_all(data, spy_data):
 
 def beat_spy(stock_return, spy_return):
     return stock_return > spy_return
+
+def calculate_volatility(data):
+    returns = data["Close"].pct_change()
+    return returns.std()
