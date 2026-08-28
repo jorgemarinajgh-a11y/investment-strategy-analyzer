@@ -2,9 +2,10 @@ from data_collection import get_data
 from stock_info import display_stock_info
 from analysis import calculate_return, compare_returns
 from simulation import simulate_all
+from visualization import plot_stock_history
 
-stocks = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "META"]
-
+#stocks = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "META"]
+stocks = ["AAPL"]
 returns = {}
 data = {}
 for stock in stocks:
@@ -13,6 +14,7 @@ for stock in stocks:
     return_pct = calculate_return(data[stock])
     returns[stock] = return_pct
     print(f"{stock}: Annual Return: {return_pct:.2f}%")
+    plot_stock_history(stock, data[stock])
     
 
 annual_returns = compare_returns(returns)
