@@ -10,7 +10,7 @@ def plot_stock_history(stock, data):
     plt.show()
     plt.close()
 
-def plot_multiple(stocks, data):
+def plot_multiple(data):
     for stock, stock_data in data.items():
         plt.plot(stock_data["Close"], label=f"{stock} Close Price")
     plt.title("Multiple Stock History")

@@ -4,7 +4,7 @@ from analysis import calculate_return, compare_returns, normalize_all
 from simulation import simulate_all
 from visualization import plot_stock_history, plot_multiple
 
-stocks = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "META"]
+stocks = ["SPY", "AAPL", "GOOGL", "MSFT", "AMZN", "TSLA", "META"]
 #stocks = ["AAPL"]
 returns = {}
 data = {}
@@ -31,4 +31,4 @@ for stock, (value, gain) in results.items():
     print(f"Current Value: ${value:.2f}")
     print(f"Profit: ${gain:.2f}")
 
-plot_multiple(stocks, normalize_all(data))
+plot_multiple(normalize_all(data))

@@ -21,3 +21,6 @@ def normalize_all(data):
     for stock, stock_data in data.items():
         res[stock] = normalize_data(stock_data)
     return res
+
+def beat_spy(stock_return, spy_return):
+    return stock_return > spy_return
